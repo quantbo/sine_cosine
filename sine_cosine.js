@@ -26,7 +26,7 @@ var boxInner = inner.append('rect')
 
 //Generate data; there will be nn + 1 rows of data.
 var theData = [], nn = 100,
-		begin = -2 * Math.PI, end = 2 * Math.PI, span = end - begin;
+		begin = -3 * Math.PI, end = 3 * Math.PI, span = end - begin;
 for (var ii = 0; ii <= nn;  ++ii) {
 	//The next line avoids buildup of rounding errors in the specification of x values.
 	var x = begin + span * ii / nn;
@@ -35,16 +35,46 @@ for (var ii = 0; ii <= nn;  ++ii) {
 }
 
 //Generate tick values, using the 'begin' and 'end' variables defined above.
-//Place a tick marks with a frequency of PI/2.
+//Place tick marks with a frequency of pi/2.
 var tickVals = [];
 var tickCount = Math.round((end - begin) / (Math.PI/2));
 for (var ii = 0; ii <= tickCount; ++ii) tickVals.push(begin + ii * Math.PI / 2);
-//debug:
-console.log(tickVals);
+
+//Define a function for formatting tick labels.
+//There are a number of special cases for values between -pi and pi inclusive.
+function tf(d, i) {
+	var pi = '\u03c0';
+	//The arg i is available, but we do not use it.
+	var prefix = Math.round(2 * d / Math.PI) / 2;
+	if (prefix == -1) {
+		label = '-' + pi;
+	} else
+	if (prefix == -0.5) {
+		label = '-' + pi + '/2';
+	} else
+	if (prefix == 0) {
+		label = '0';
+	} else
+	if (prefix == 0.5) {
+		label = pi + '/2';
+	} else
+	if (prefix == 1) {
+		label = pi;
+	} else
+	if (prefix % 1 != 0) {
+		prefix = 2 * prefix;
+		suffix = 2;
+		label = prefix + pi + '/' + suffix; 
+	} else {
+		label = prefix + pi;
+	}
+	return label;
+}
 
 //Define scales.
 var xScale = d3.scaleLinear()
-	.domain(d3.extent(theData, function(d) {return d.x;}))
+	.domain([begin, end])
+//	.domain(d3.extent(theData, function(d) {return d.x;}))
 	.range([0, widthInner]);
 var yScale = d3.scaleLinear()
 	//The domain is determined theoretically. The sine and cosine functions vary between -1 and 1.
@@ -75,7 +105,7 @@ inner.append('g') //y axis
 	.attr('class', 'axis');
 //In order for translate() to apply to the axis alone, and not to the entire 'inner' element, the axis must be placed within its own 'g' element.
 inner.append('g') //x axis
-	.call(d3.axisBottom(xScale).tickValues(tickVals).tickSizeOuter(0))
+	.call(d3.axisBottom(xScale).tickValues(tickVals).tickSizeOuter(0).tickFormat(tf))
 	.attr('class', 'axis')
 	.attr('transform', 'translate(0, ' + heightInner + ')');
 
