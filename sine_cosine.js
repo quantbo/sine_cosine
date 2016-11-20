@@ -23,6 +23,7 @@ var boxInner = inner.append('rect')
 	.attr('height', heightInner)
 	.attr('width', widthInner)
 	.style('opacity', 1/2);
+
 //Generate data; there will be nn + 1 rows of data.
 var theData = [], nn = 100,
 		begin = -2 * Math.PI, end = 2 * Math.PI, span = end - begin;
@@ -32,6 +33,14 @@ for (var ii = 0; ii <= nn;  ++ii) {
 	var row = {x: x, cos: Math.cos(x), sin: Math.sin(x)};
 	theData.push(row);
 }
+
+//Generate tick values, using the 'begin' and 'end' variables defined above.
+//Place a tick marks with a frequency of PI/2.
+var tickVals = [];
+var tickCount = Math.round((end - begin) / (Math.PI/2));
+for (var ii = 0; ii <= tickCount; ++ii) tickVals.push(begin + ii * Math.PI / 2);
+//debug:
+console.log(tickVals);
 
 //Define scales.
 var xScale = d3.scaleLinear()
@@ -61,12 +70,12 @@ inner.append('path')
 		.attr('d', lineSin);
 
 //Add axes.
-inner.append('g')
+inner.append('g') //y axis
 	.call(d3.axisLeft(yScale).tickSizeOuter(0).ticks(5))
 	.attr('class', 'axis');
 //In order for translate() to apply to the axis alone, and not to the entire 'inner' element, the axis must be placed within its own 'g' element.
-inner.append('g')
-	.call(d3.axisBottom(xScale).tickSizeOuter(0))
+inner.append('g') //x axis
+	.call(d3.axisBottom(xScale).tickValues(tickVals).tickSizeOuter(0))
 	.attr('class', 'axis')
 	.attr('transform', 'translate(0, ' + heightInner + ')');
 
