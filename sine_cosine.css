@@ -1,0 +1,37 @@
+body {
+	margin-left: 2.5%;
+	margin-top: 2%;
+}
+#boxInner {
+	fill: none;
+	stroke: black;
+	stroke-width: 1px;	
+}
+#boxOuter {
+	fill: none;
+	stroke: red;
+	/* To make box invisible, set stroke-opacity to 0. */
+	stroke-opacity: 1;
+	stroke-width: 1px;
+}
+.axis {
+	fill: none;
+	font-size: 1.1em;
+	font-weight: normal;
+}
+.axis-label {
+	font-family: sans-serif;
+	font-size: 1.75em;
+	text-anchor: middle;
+}
+.line {
+	fill: none;
+	stroke: black;
+	stroke-width: 2px;
+}
+.title {
+	dominant-baseline: middle;
+	font-family: sans-serif;
+	font-size: 1.6em;
+	text-anchor: middle;
+}
