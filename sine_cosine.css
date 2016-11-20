@@ -24,6 +24,10 @@ body {
 	font-size: 1.75em;
 	text-anchor: middle;
 }
+.inner-axis {
+	stroke: black;
+	stroke-width: 1.5;
+}
 .line {
 	fill: none;
 	stroke: black;

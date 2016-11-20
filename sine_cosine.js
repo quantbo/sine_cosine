@@ -89,15 +89,33 @@ var lineSin = d3.line()
 	.x(function(d) { return xScale(d.x); })
 	.y(function(d) { return yScale(d.sin); });
 
+//Add lines through the (math) origin.
+//Draw these before curves so that curves overlay them.
+inner.append('line') //horizontal
+	.attr('x1', 0)
+	.attr('x2', widthInner)
+	.attr('y1', heightInner / 2)
+	.attr('y2', heightInner / 2)
+	//If stroke is not styled line does not appear.
+	.attr('class', 'inner-axis');
+inner.append('line') //vertical
+	.attr('x1', widthInner / 2)
+	.attr('x2', widthInner / 2)
+	.attr('y1', 0)
+	.attr('y2', heightInner)
+	.attr('class', 'inner-axis');
+
 //Add paths.
 inner.append('path')
 		.data([theData]) //Notice that the argument is enclosed in square brackets.
 		.attr('class', 'line')
-		.attr('d', lineCos);
+		.attr('d', lineCos)
+		.style('stroke', 'blue');
 inner.append('path')
 		.data([theData])
 		.attr('class', 'line')
-		.attr('d', lineSin);
+		.attr('d', lineSin)
+		.style('stroke', 'orange');
 
 //Add axes.
 inner.append('g') //y axis
