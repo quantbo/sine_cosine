@@ -28,6 +28,11 @@ body {
 	stroke: black;
 	stroke-width: 1.5;
 }
+.legend-text {
+	dominant-baseline: middle;
+	font-family: sans-serif;
+	font-size: 0.9em;
+}
 .line {
 	fill: none;
 	stroke: black;

@@ -6,8 +6,8 @@ svg.append('rect')
 	.attr('id', 'boxOuter')
 	.attr('height', height)
 	.attr('width', width);
-//Leave space for axis on LHS, title.
-var margin = {top: Math.round(height * 0.10),
+//Leave space for axis on LHS, title, legend.
+var margin = {top: Math.round(height * 0.15),
 						 right: Math.round(width * 0.05),
 						 bottom: Math.round(height * 0.10),
 						 left: Math.round(width * 0.075)};
@@ -116,6 +116,32 @@ inner.append('path')
 		.attr('class', 'line')
 		.attr('d', lineSin)
 		.style('stroke', 'orange');
+
+//Legend.
+inner.append('line')
+	.attr('x1', 0)
+	.attr('x2', 0.10 * widthInner)
+	.attr('y1', - margin.top / 2)
+	.attr('y2', - margin.top / 2)
+	.style('stroke', 'orange')
+	.style('stroke-width', '2px');
+inner.append('text')
+	.text('sine')
+	.attr('x', 0.11 * widthInner)
+	.attr('y', - margin.top / 2)
+	.attr('class', 'legend-text');
+inner.append('line')
+	.attr('x1', 0)
+	.attr('x2', 0.10 * widthInner)
+	.attr('y1', - margin.top / 4)
+	.attr('y2', - margin.top / 4)
+	.style('stroke', 'blue')
+	.style('stroke-width', '2px');
+inner.append('text')
+	.text('cosine')
+	.attr('x', 0.11 * widthInner)
+	.attr('y', - margin.top / 4)
+	.attr('class', 'legend-text');
 
 //Add axes.
 inner.append('g') //y axis
