@@ -77,7 +77,6 @@ function tf(d, i) {
 //Define scales.
 var xScale = d3.scaleLinear()
 	.domain([begin, end])
-//	.domain(d3.extent(theData, function(d) {return d.x;}))
 	.range([0, widthInner]);
 var yScale = d3.scaleLinear()
 	//The domain is determined theoretically. The sine and cosine functions vary between -1 and 1.
