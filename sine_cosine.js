@@ -22,7 +22,8 @@ var boxInner = inner.append('rect')
 	.attr('id', 'boxInner')
 	.attr('height', heightInner)
 	.attr('width', widthInner)
-	.style('opacity', 1/2);
+	.style('stroke-opacity', 1/2)
+	.style('fill', 'rgba(128, 0, 255, 0.03)');
 
 //Generate data; there will be nn + 1 rows of data.
 var theData = [], nn = 100,
