@@ -22,8 +22,10 @@ var boxInner = inner.append('rect')
 	.attr('id', 'boxInner')
 	.attr('height', heightInner)
 	.attr('width', widthInner)
-	.style('stroke-opacity', 1/2)
-	.style('fill', 'rgba(128, 0, 255, 0.03)');
+	.style('stroke-opacity', 1/2);
+
+//Curve and shading colors.
+var cos_color = 'blue', sin_color = 'orange';
 
 //Generate data; there will be nn + 1 rows of data.
 var theData = [], nn = 100,
@@ -44,8 +46,8 @@ for (var ii = 0; ii <= tickCount; ++ii) tickVals.push(begin + ii * Math.PI / 2);
 //Define a function for formatting tick labels.
 //There are a number of special cases for values between -pi and pi inclusive.
 function tf(d, i) {
+	//The arg i is available but we do not use it.
 	var pi = '\u03c0';
-	//The arg i is available, but we do not use it.
 	var prefix = Math.round(2 * d / Math.PI) / 2;
 	if (prefix == -1) {
 		label = '-' + pi;
@@ -90,8 +92,18 @@ var lineSin = d3.line()
 	.x(function(d) { return xScale(d.x); })
 	.y(function(d) { return yScale(d.sin); });
 
-//Add lines through the (math) origin.
-//Draw these before curves so that curves overlay them.
+//Define areas. These shade the areas between the curves and the mathematical x axis.
+var cos_area = d3.area()
+	.x(function(d, i) {return xScale(d.x);})
+	.y0(heightInner / 2) //The mathematical x axis is located here.
+	.y1(function(d, i) {return yScale(d.cos);});
+var sin_area = d3.area()
+	.x(function(d, i) {return xScale(d.x);})
+	.y0(heightInner / 2) //The mathematical x axis is located here.
+	.y1(function(d, i) {return yScale(d.sin);});
+
+//Draw mathematical axes.
+//Draw before curves are rendered so that curves overlay them.
 inner.append('line') //horizontal
 	.attr('x1', 0)
 	.attr('x2', widthInner)
@@ -106,17 +118,30 @@ inner.append('line') //vertical
 	.attr('y2', heightInner)
 	.attr('class', 'inner-axis');
 
+//Render shading.
+//Do before curves are generated so that shading does not paint over the curves.
+inner.append('path')
+	.data([theData])
+	.attr('d', cos_area)
+	.style('fill', cos_color)
+	.style('fill-opacity', 0.25);
+inner.append('path')
+	.data([theData])
+	.attr('d', sin_area)
+	.style('fill', sin_color)
+	.style('fill-opacity', 0.25);
+
 //Add paths.
 inner.append('path')
 		.data([theData]) //Notice that the argument is enclosed in square brackets.
 		.attr('class', 'line')
 		.attr('d', lineCos)
-		.style('stroke', 'blue');
+		.style('stroke', cos_color);
 inner.append('path')
 		.data([theData])
 		.attr('class', 'line')
 		.attr('d', lineSin)
-		.style('stroke', 'orange');
+		.style('stroke', sin_color);
 
 //Legend.
 inner.append('line')
@@ -124,7 +149,7 @@ inner.append('line')
 	.attr('x2', 0.10 * widthInner)
 	.attr('y1', - margin.top / 2)
 	.attr('y2', - margin.top / 2)
-	.style('stroke', 'orange')
+	.style('stroke', sin_color)
 	.style('stroke-width', '2px');
 inner.append('text')
 	.text('sine')
@@ -136,7 +161,7 @@ inner.append('line')
 	.attr('x2', 0.10 * widthInner)
 	.attr('y1', - margin.top / 4)
 	.attr('y2', - margin.top / 4)
-	.style('stroke', 'blue')
+	.style('stroke', cos_color)
 	.style('stroke-width', '2px');
 inner.append('text')
 	.text('cosine')

@@ -1,0 +1,19 @@
+/* This style governs the explanatory text placed below a chart. */
+#blurb {
+	font-size: 1.15em;
+	font-family: serif;
+	font-weight: 100;
+	margin-left: 2%;
+	margin-right: 5%;
+	margin-top: 3%;
+	width: 45%;
+}
+#blurb li {
+	margin-bottom: 0.5em;
+}
+#blurb li p {
+	margin-left: 2em;
+	margin-bottom: 0.5em;
+	margin-right: 1em;
+	margin-top: 0.5em;
+}

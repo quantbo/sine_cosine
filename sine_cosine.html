@@ -1,24 +1,28 @@
 <!--
-Graph sine and cosine functions. Shade the areas between the graphs and the x-axis.
-This exercise focuses on the following objectives:
-* Shading.
-* Plotting graphs that can be negative, zero, and positive in their domains and ranges.
-* Generating an x-axis that is expressed in units of PI.
-* Generating a legend. It might not be obvious to someone who has not recently brushed up on their high school math which curve is the sine and which the cosine.
-
-A Stack Overflow entry relevant to the present exercise:
-https://stackoverflow.com/questions/40701039/d3-v4-how-to-set-ticks-every-math-pi-2
+Graph sine and cosine functions.
+For the goals of this exercise see 'readme.md'.
 -->
 <!DOCTYPE html>
 <html>
 	<head>
 	<meta charset='utf-8'>
 	<title>sine, cosine</title>
-	<link rel="stylesheet" href="sine_cosine.css">
+	<link rel='stylesheet' href='sine_cosine.css'>
 	<script src='https://d3js.org/d3.v4.min.js'></script>
 	</head>
-<body>
-	<svg height=400 width=900></svg>
-</body>
-<script src='sine_cosine.js'></script>
+	<body>
+		<svg height=400 width=900></svg>
+	</body>
+	<script src='sine_cosine.js'></script>
+	<link rel='stylesheet' href='blurb.css'>
+	<div id='blurb'>
+		<p>This exercise tackles a few objectives:</p>
+		<ul>
+			<li>Graph data that takes on negative, zero, and positive values in its domain and range. This requires making a distinction between <em>chart axes</em> and <em>mathematical axes</em>. To elaborate:
+				<p>The x axis of a chart is normally at the bottom of the chart and the y axis is at the left hand side or right hand side of the chart. However, to portray data that can be negative, zero, or positive typically requires drawing mathematical axes as well; that is, axes that pass through zero horiztonally and vertically.</p></li>
+			<li>Generate a chart x axis that is expressed in units of PI. This is not trivial and involves coding a rather elaborate formatting function that converts the data to labels exhibiting the greek letter PI (&pi;).</li>
+			<li>Generate a legend. A legend that is poorly designed or poorly placed can stick out like a sore thumb. I provide a legend that aims to be informative but understated.</li>
+			<li>Shade the areas between the curves and the mathematical x axis. This does not, frankly, enhance the intellectual content of the chart, but adds some color that I hope you find pleasing.</li>
+		</ul>
+	</div>
 </html>
