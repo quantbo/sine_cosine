@@ -7,3 +7,5 @@ This exercise tackles a few objectives:
 * Generate a chart x axis that is expressed in units of PI. This is not trivial and involves coding a formatting function that converts the data to labels exhibiting the greek letter PI.
 * Generate a legend. A legend that is poorly designed or poorly placed can stick out like a sore thumb. I provide a legend that aims to be informative but understated.
 * Shade the areas between the curves and the mathematical x axis.
+
+To view the chart please click <a href='https://quantbo.github.io/sine_cosine/' target="_blank">here</a>.
